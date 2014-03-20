@@ -20,5 +20,10 @@
   <%= @task.is_completed %>
 </p>
 
+<p>
+  <strong>Created By:</strong>
+  <%= @task.createdby %>
+</p>
+
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path %></div align="center">

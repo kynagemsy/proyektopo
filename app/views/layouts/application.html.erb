@@ -8,6 +8,19 @@
 </head>
 <body>
 
+<% if user_signed_in? %>
+	Hi <%= current_user.email %>
+	<%= link_to "Sign out", destroy_user_session_path, :method => :delete %> | 
+	<%= link_to "Home", welcome_index_path %> |
+	<%= link_to 'My Task List', tasks_path %>
+<% else %>
+	<%= link_to "Sign up!", new_user_registration_path %> or <%= link_to "Sign in", new_user_session_path %>
+<% end %>
+
+<% flash.each do |name, message| %>
+	<%= content_tag :div, message, :id => "flash_#{name}" %>
+<% end %>
+
 <%= yield %>
 
 </body>

@@ -23,10 +23,8 @@
     <%= f.label :Due %><br>
     <%= f.date_select :Due %>
   </div>
-  <div class="field">
-    <%= f.label :is_completed %><br>
-    <%= f.check_box :is_completed %>
-  </div>
+  <%= f.hidden_field :createdby, :value => current_user.email %>
+
   <div class="actions">
     <%= f.submit %>
   </div>

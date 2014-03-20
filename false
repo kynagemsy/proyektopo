@@ -1,0 +1,2 @@
+      invoke  active_record
+      create    db/migrate/20140320055232_add_is_completed_to_tasks.rb

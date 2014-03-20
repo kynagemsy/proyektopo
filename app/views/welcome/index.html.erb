@@ -1,10 +1,46 @@
 <div align="center"><h1>Alonso and Kyna's Awesome Project</h1>
 </br>
-<h2><i>“It does not do to leave a live dragon out of your calculations, if you live near him.” </i></h23>
-</br></div align="center">
+<h2><i>“It does not do to leave a live dragon out of your calculations, if you live near him.” </i></h2></div align="center">
 <div align="right"><b>J.R.R. Tolkien</b></div align="right">
-</br></br></br>
 <div align="center"><p>Greetings! This is our project for CS 21b. We hope it aids you in scheduiling your tasks!</p></div align="center">
-</br></br></br></br></br></br>
-<%= link_to 'Create a task', new_task_path %>
+
+<div align="center"><h1>All Tasks List</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Category</th>
+      <th>Due</th>
+      <th>Done?</th>
+      <th>Created By</th>
+      <th>Completed By</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tasks.each do |t| %>
+      <tr>
+        <td><%= t.Task %></td>
+        <td><%= t.Category %></td>
+        <td><%= t.Due %></td>
+        <td><%= t.is_completed %></td>
+        <td><%= t.createdby %></td>
+        <td><%= t.completedby %></td>
+        <% if t.is_completed %>
+          <td><%= link_to "Un Done", mark_task_path(t), :method => :put  %></td>
+        <% else %>
+          <td><%= link_to "Mark as Done", mark_task_path(t), :method => :put  %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
 <footer><p>De Leon - Sy 2014</p></footer>

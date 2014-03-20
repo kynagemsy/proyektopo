@@ -1,7 +1,13 @@
 Proyektopo::Application.routes.draw do
-  get "help/index"
-  get "welcome/index"
-  resources :tasks
+
+  devise_for :users
+  root :to => "home#index"
+
+  resources :welcome, :tasks
+  resource :task do
+    put 'mark/:id' => 'tasks#mark', :as => 'mark'
+  end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -57,5 +63,4 @@ Proyektopo::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-  root 'welcome#index'
 end

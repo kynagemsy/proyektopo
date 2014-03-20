@@ -1,10 +1,13 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :mark]
 
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    if not user_signed_in?
+      redirect_to :controller => 'home', :action => 'index'
+    end
+    @tasks = Task.where(createdby: current_user.email)
   end
 
   # GET /tasks/1
@@ -37,6 +40,23 @@ class TasksController < ApplicationController
     end
   end
 
+  def mark
+    session[:return_to] ||= request.referer
+    if @task.is_completed
+      if @task.update_attributes(:is_completed => false, :completedby => "")
+        redirect_to session.delete(:return_to), :notice => "Your task item was un done!"
+      else
+        redirect_to session.delete(:return_to), :notice => "Your task item was unable to un done!"
+      end
+    else
+      if @task.update_attributes(:is_completed => true, :completedby => current_user.email)
+        redirect_to session.delete(:return_to), :notice => "Your task item was marked as done!"
+      else
+        redirect_to session.delete(:return_to), :notice => "Your task item was unable to be marked as done!"
+      end
+    end
+  end
+  
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
@@ -69,6 +89,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:Task, :Category, :Due, :is_completed)
+      params.require(:task).permit(:Task, :Category, :Due, :is_completed, :createdby, :completedby)
     end
 end

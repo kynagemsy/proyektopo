@@ -1,4 +1,4 @@
-<div align="center"><h1>New Task</h1>
+<div align="center"><h1>Tasks List</h1>
 
 <table>
   <thead>
@@ -7,6 +7,8 @@
       <th>Category</th>
       <th>Due</th>
       <th>Done?</th>
+      <th>Created By</th>
+      <th>Completed By</th>
       <th></th>
       <th></th>
       <th></th>
@@ -14,15 +16,22 @@
   </thead>
 
   <tbody>
-    <% @tasks.each do |task| %>
+    <% @tasks.each do |t| %>
       <tr>
-        <td><%= task.Task %></td>
-        <td><%= task.Category %></td>
-        <td><%= task.Due %></td>
-        <td><%= task.is_completed %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= t.Task %></td>
+        <td><%= t.Category %></td>
+        <td><%= t.Due %></td>
+        <td><%= t.is_completed %></td>
+        <td><%= t.createdby %></td>
+        <td><%= t.completedby %></td>
+        <td><%= link_to 'Show', t%></td>
+        <td><%= link_to 'Edit', edit_task_path(t) %></td>
+        <% if t.is_completed %>
+          <td><%= link_to "UnDone", mark_task_path(t), :method => :put  %></td>
+        <% else %>
+          <td><%= link_to "Done", mark_task_path(t), :method => :put  %></td>
+        <% end %>
+        <td><%= link_to 'Destroy', t, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
