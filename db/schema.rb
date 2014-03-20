@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20140320030900) do
     t.string   "Task"
     t.string   "Category"
     t.date     "Due"
-    t.boolean  "is_completed"
+    t.boolean  "is_completed", default: false
     t.string   "createdby"
     t.string   "completedby"
     t.datetime "created_at"
