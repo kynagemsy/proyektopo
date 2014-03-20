@@ -5,7 +5,8 @@ class CreateTasks < ActiveRecord::Migration
       t.string :Category
       t.date :Due
       t.boolean :is_completed
-
+      t.string :createdby
+      t.string :completedby
       t.timestamps
     end
   end
